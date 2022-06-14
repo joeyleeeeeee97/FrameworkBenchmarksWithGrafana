@@ -1,5 +1,6 @@
 const { InfluxDB, Point, HttpError } = require('@influxdata/influxdb-client')
 const { url, token, org, bucket } = require('../env')
+const {hostname} = require('os')
 
 class influx {
     async write(results, test) {
@@ -8,14 +9,16 @@ class influx {
 
         for (let result of results) {
             let point = new Point(test)
-                .tag(result.test, result.workload, result.uuid, result.env)
+                .tag(result.test, result.workload)
                 .floatField('latencyAvg', this.convertToMs(result.latencyAvg))
                 .floatField('latencyMax', this.convertToMs(result.latencyMax))
                 .floatField('latencyStdev', this.convertToMs(result.latencyStdev))
-                .integerField('totalRequests', result.totalRequests)
-                .integerField('startTime', result.startTime)
-                .integerField('endTime', result.endTime)
-                .integerField('stress', result.stress)
+                .floatField('totalRequests', result.totalRequests)
+                .floatField('startTime', result.startTime)
+                .floatField('endTime', result.endTime)
+                .floatField('stress', result.stress)
+                .stringField('uuid', result.uuid)
+                .stringField('env', result.env)
                 .timestamp(new Date())
             writeApi.writePoint(point)
         }

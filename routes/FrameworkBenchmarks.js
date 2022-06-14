@@ -1,6 +1,5 @@
 const FrameworkBenchmarksParser = require("../parsers/FrameworkBenchmarksParser");
 const influx = require("../db/influx");
-const influx = require("../db/influx");
 
 module.exports = async (req, res) => {
     try {
