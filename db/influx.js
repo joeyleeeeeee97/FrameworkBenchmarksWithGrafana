@@ -9,7 +9,8 @@ class influx {
 
         for (let result of results) {
             let point = new Point(test)
-                .tag(result.test, result.workload)
+                .tag('testName', result.test)
+                .tag('workload', result.workload)
                 .floatField('latencyAvg', this.convertToMs(result.latencyAvg))
                 .floatField('latencyMax', this.convertToMs(result.latencyMax))
                 .floatField('latencyStdev', this.convertToMs(result.latencyStdev))
@@ -19,8 +20,8 @@ class influx {
                 .floatField('stress', result.stress)
                 .stringField('uuid', result.uuid)
                 .stringField('env', result.env)
-                .timestamp(new Date())
             writeApi.writePoint(point)
+            writeApi.flush()
         }
         writeApi.close()
     }

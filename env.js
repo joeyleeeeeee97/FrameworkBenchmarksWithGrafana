@@ -5,12 +5,12 @@ const token = process.env['INFLUX_TOKEN'] || 'my-token'
 /** Organization within InfluxDB  */
 const org = process.env['INFLUX_ORG'] || 'my-org'
 /**InfluxDB bucket used in examples  */
-const bucket = 'my-bucket'
+const bucket = process.env['BUCKET'] || 'my-bucket'
 // ONLY onboarding example
 /**InfluxDB user  */
-const username = 'my-user'
+const username = process.env['USER'] || 'my-user'
 /**InfluxDB password  */
-const password = 'my-password'
+const password =  process.env['PASSWORD'] || 'my-password'
 
 module.exports = {
   url,

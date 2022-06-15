@@ -13,6 +13,6 @@ async function FrameworkBenchmarkHandle(req, res) {
     let tfbParser = new FrameworkBenchmarksParser()
     let results = await tfbParser.parse(req.body)
     let influxdb = new influx()
-    influxdb.write(results)
+    influxdb.write(results, 'FrameworkBenchmarks')
     res.send({results})
 }

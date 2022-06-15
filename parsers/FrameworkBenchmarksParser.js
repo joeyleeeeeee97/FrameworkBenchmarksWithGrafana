@@ -10,11 +10,10 @@ class FrameworkBenchmarksParser {
         for (let workload of workloads) {
             let stressLevels = data[workloadMap[workload]]
             for (const [testName, runs] of Object.entries(data.rawData[workload])) {
-                console.log(`${testName}: ${runs}`);
                 for (let i = 0; i < runs.length; i++) {
                     let run = runs[i]
                     run.test = testName
-                    run.workload = workloads
+                    run.workload = workload
                     run.env = data.environmentDescription
                     run.uuid = data.uuid
                     run.stress = stressLevels[i]
